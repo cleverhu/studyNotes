@@ -40,8 +40,12 @@
 	rm -rf ~/go/src/github.com/mactsouk/go/simpleGitHub
 
 # 8.UNIX stdin, stdout, and stderr
-	默认情况下，所有UNIX系统都支持三种特殊和标准文件名：/dev/stdin，/dev/stdout和/dev/stderr，也可以分别使用文件描述符0、1和2访问它们。 这三个文件描述符也分别称为标准输入，标准输出和标准错误。 另外，文件描述符0可以在macOS机器上以/dev/fd/0访问，在Debian Linux机器上可以以/dev/fd/0和/dev/pts/0访问。
-	Go使用os.Stdin访问标准输入，使用os.Stdout访问标准输出，使用os.Stderr访问标准错误。 尽管您仍然可以使用/dev/stdin，/dev/stdout和/dev/ stderr或相关的文件描述符值来访问相同的设备，但坚持使用os.Stdin，os会更好，更安全且更可移植。 Stdout和os.Stderr由Go提供。
+	默认情况下，所有UNIX系统都支持三种特殊和标准文件名：/dev/stdin，/dev/stdout和/dev/stderr，
+    也可以分别使用文件描述符0、1和2访问它们。 这三个文件描述符也分别称为标准输入，标准输出和标准错误。 
+    另外，文件描述符0可以在macOS机器上以/dev/fd/0访问，在Debian Linux机器上可以以/dev/fd/0和/dev/pts/0访问。
+	Go使用os.Stdin访问标准输入，使用os.Stdout访问标准输出，使用os.Stderr访问标准错误。 
+    尽管您仍然可以使用/dev/stdin，/dev/stdout和/dev/ stderr或相关的文件描述符值来访问相同的设备，
+    但坚持使用os.Stdin，os会更好，更安全且更可移植。 Stdout和os.Stderr由Go提供。
 
 # 9.打印输出
 	fmt.Println(v1, v2) 等效 fmt.Print(v1, " ", v2, "\n")
@@ -82,11 +86,13 @@
 	错误和错误处理是两个非常重要的Go主题。 Go非常喜欢错误消息，以至于它有一个单独的错误数据类型，称为error。 
 	这也意味着，如果您发现Go所提供的功能不足，则可以轻松创建自己的错误消息。
 	请注意，出现错误情况是一回事，但是决定如何对错误情况做出反应是完全不同的事情。 
-	简而言之，并非所有错误条件都相同，这意味着某些错误条件可能要求您立即停止执行程序，而其他错误情况则可能需要打印警告消息，以供用户在继续执行程序时查看。 
+	简而言之，并非所有错误条件都相同，这意味着某些错误条件可能要求您立即停止执行程序，
+    而其他错误情况则可能需要打印警告消息，以供用户在继续执行程序时查看。 
 	该程序。 开发人员应使用常识并决定如何处理程序可能获得的每个错误值。
 	在许多情况下，开发自己的Go应用程序时最终可能不得不处理新的错误情况。 错误数据类型在这里可以帮助您定义自己的错误。
 
-	创建属于自己的error变量=>errors标准库里的New() errors.New()需要一个string类型作为参数，如果一个函数应该返回error变量，但是没有error去报告，应该返回nil
+	创建属于自己的error变量=>errors标准库里的New() errors.New()需要一个string类型作为参数，
+    如果一个函数应该返回error变量，但是没有error去报告，应该返回nil
 	fmt.Errorf(format,args)底层也是errors.New(),格式化一个字符串然后，调用errors.New()
 	err.Error()将一个error变量转化为string类型
 
