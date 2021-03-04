@@ -48,7 +48,7 @@
     PATCH /v1/books/1256
     {"isbn" : "0618640150"}
 
-# DELETE and OPTIONS
+# DELETE 和 OPTIONS
     DELETE API方法用于从数据库中删除资源。 
     它与PUT相似，但没有主体。 它只需要删除资源的ID即可。 
     一旦资源被删除，后续的GET请求将返回404 not found状态。
