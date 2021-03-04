@@ -39,7 +39,7 @@
     不同处：
     POST是首次提交数据，创建（数据包含所有）
     PUT是对某些数据进行更新替换（数据包含所有）
-    PATCH是对某些数据进行更新或新增（仅仅是新增或者删除的数据）
+    PATCH是对某些数据进行更新或新增（仅仅是新增或者修改的数据）
 
     POST /v1/books
     {"name" : "Lord of the rings", "year": 1954, "author" : "J. R. R. Tolkien"}
