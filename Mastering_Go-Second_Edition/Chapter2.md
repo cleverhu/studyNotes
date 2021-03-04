@@ -50,12 +50,48 @@
 	请注意，如果在垃圾回收周期的某个时刻灰色集合的某个对象变得不可访问，
 	则不会在该垃圾回收周期中将其收集，而是在下一个垃圾回收中将其收集！ 尽管这不是最佳情况，但还不错。
 
-    在此过程中，正在运行的应用程序称为mutator。 mutator运行一个名为write barrier的小函数，
-    每次修改堆中的指针时都会执行该函数。 如果修改了堆中某个对象的指针，这意味着该对象现在可以访问，则write barrier将其着色为灰色并将其置于灰色集中。
-    mutator负责变量，即黑色集合的元素都没有指向白色集合的元素的指针。这是在write barrier的帮助下完成的。 无法完成该不变式将破坏垃圾回收过程，
-    并且很有可能以一种非常糟糕且令人讨厌的方式使您的程序崩溃！
+    在此过程中，正在运行的应用程序称为mutator。 mutator运行一个名为write barrier的小函数，每次修改堆中的指针时都会执行该函数。 如果修改了堆中某个对象的指针，这意味着该对象现在可以访问，则write barrier将其着色为灰色并将其置于灰色集中。
+    mutator负责变量，即黑色集合的元素都没有指向白色集合的元素的指针。 这是在write barrier的帮助下完成的。 无法完成该不变式将破坏垃圾回收过程，并且很有可能以一种非常糟糕且令人讨厌的方式使您的程序崩溃！
+
+    time go run cf.go  
+    程序运行计时
+    结果go run cf.go 0.26s user 0.52s system 50% cpu 1.563 total
+
+# defer关键词
+    defer中文为延迟，延迟函数在返回周围函数后以后进先出（LIFO）的顺序执行。 简而言之，这意味着如果在同一个周围函数中先延迟函数f1（），然后再延迟函数f2（），然后再延迟函数f3（），则当周围函数即将返回时，将执行函数f3（） 首先，函数f2（）将被第二执行，函数f1（）将是最后一个要执行的函数。
+    常用于关闭文件或者和recovery和panic结合使用
 
 
+# Panic 和 recover
+    func a() {
+    	fmt.Println("Inside a()")
+    	defer func() {
+    		if c := recover(); c != nil {
+    			fmt.Println("Recover inside a()!")
+    		}
+    	}()
+    	fmt.Println("About to call b()")
+    	b()
+    	fmt.Println("b() exited!")
+    	fmt.Println("Exiting a()")
+    }
+
+    func b() {
+    	fmt.Println("Inside b()")
+    	panic("Panic in b()!")
+    	fmt.Println("Exiting b()")
+    }
+    
+    func main() {
+    	a()
+    	fmt.Println("main() ended!")
+    }
+    
+    panic会一层层往上调用，遇到recover之后不会执行该层后面的代码，panic一般适合recover成对出现的
+    
+    panic()和log.Panic()区别是panic()函数不会向您的UNIX计算机的日志记录服务发送任何内容。
+    
+    
 
 
 
